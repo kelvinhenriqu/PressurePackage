@@ -6,7 +6,6 @@ import time
 import pigpio
 import csv
 from datetime import datetime
-import urllib
 
 Debug = 1
 started = 0
@@ -16,7 +15,6 @@ path = "/mnt/usb_share/logs/"
 now = datetime.now()
 date = now.strftime("%d%m%y%H%M%S")
 csvname =path + date + "-" + Serial +".csv"
-checkupdate()
 
 def getvalue(): #Comunica com I2C e retorna valores de press?o e temperatura
 
@@ -50,7 +48,7 @@ def getvalue(): #Comunica com I2C e retorna valores de press?o e temperatura
         if Temperature <0 or Temperature >100:
             print("out of range")
         else:
-            print("Temperatura = ", Temperature, "ยบc")
+            print("Temperatura = ", Temperature, "c")
 #        print("medicoes = ", contador)
 
     with open(csvname, mode='a') as sensor_readings:
@@ -60,4 +58,4 @@ def getvalue(): #Comunica com I2C e retorna valores de press?o e temperatura
 
 
 while True: #Inicia Loop
-    #getvalue()
+    getvalue()
