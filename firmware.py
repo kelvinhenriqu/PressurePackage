@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__VERSION__ = 1.4
+__VERSION__ = 1.3
 
 import time
 import pigpio
@@ -50,7 +50,7 @@ def getvalue(): #Comunica com I2C e retorna valores de press?o e temperatura
         if Temperature <0 or Temperature >100:
             print("out of range")
         else:
-            print("Temperatura = ", Temperature, "ºc")
+            print("Temperatura = ", Temperature, "ยบc")
 #        print("medicoes = ", contador)
 
     with open(csvname, mode='a') as sensor_readings:
