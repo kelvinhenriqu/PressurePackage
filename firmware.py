@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__VERSION__ = '1.4'
+__VERSION__ = 1.4
 
 import time
 import pigpio
@@ -8,7 +8,6 @@ import csv
 from datetime import datetime
 import urllib
 
-revisao = "1.3"
 Debug = 1
 started = 0
 Serial="21001" #Numero Serial do produto
@@ -62,19 +61,3 @@ def getvalue(): #Comunica com I2C e retorna valores de press?o e temperatura
 
 while True: #Inicia Loop
     #getvalue()
-
-
-def checkupdate():
-    urllib.urlretrieve("https://github.com/kelvinhenriqu/PressurePackage/blob/main/Version.txt", filename="tempversion.txt")
-    
-    new_version = ''
-    with open('tempversion.txt') as f:
-        for line in f:
-            line = line.strip()
-            if '__VERSION__' in line:
-                _, new_version = line.split('=', maxsplit=1)
-                new_version = new_version.strip()
-                break
-
-    print('Version of the new script is:', new_version)
-    print('Current version is:', __VERSION__)
