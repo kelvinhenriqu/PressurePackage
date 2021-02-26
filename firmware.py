@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__VERSION__ = 1.3
+__VERSION__ = 1.4
 
 import time
 import pigpio
 import csv
+import bluetooth
 from datetime import datetime
 
 Debug = 1
@@ -15,6 +16,12 @@ path = "/mnt/usb_share/logs/"
 now = datetime.now()
 date = now.strftime("%d%m%y%H%M%S")
 csvname =path + date + "-" + Serial +".csv"
+
+server_socket=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
+ 
+port = 1
+server_socket.bind(("",port))
+server_socket.listen(1)
 
 def getvalue(): #Comunica com I2C e retorna valores de press?o e temperatura
 
@@ -57,5 +64,24 @@ def getvalue(): #Comunica com I2C e retorna valores de press?o e temperatura
         return(write_to_log)
 
 
-while True: #Inicia Loop
-    getvalue()
+#while True: #Inicia Loop
+#    getvalue()
+
+    
+while 1:
+ 
+ data = client_socket.recv(1024)
+ print "Received: %s" % data
+ if (data == "1"):    #if '0' is sent from the Android App, turn OFF the LED
+  print ("doing code 1 - Starting to get i2c data")
+  getvalue()
+ if (data == "0"):    #if '1' is sent from the Android App, turn OFF the LED
+  print ("doing code 0 - Stopping to get i2c data")
+  GPIO.output(LED,1)
+ if (data == "q"):
+  print ("doing code q - quiting program")
+  break
+
+
+client_socket.close()
+server_socket.close()
