@@ -56,7 +56,7 @@ def getvalue(): #Comunica com I2C e retorna valores de press?o e temperatura
             print("out of range")
         else:
             print("Temperatura = ", Temperature, "C")
-#        print("medicoes = ", contador)
+        #print("medicoes = ", contador)
 
     with open(csvname, mode='a') as sensor_readings:
         sensor_write = csv.writer(sensor_readings, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -67,7 +67,7 @@ def getvalue(): #Comunica com I2C e retorna valores de press?o e temperatura
 #while True: #Inicia Loop
 #    getvalue()
 
-    
+print ("waiting for some bluetooth communication")    
 while 1:
  
  data = client_socket.recv(1024)
