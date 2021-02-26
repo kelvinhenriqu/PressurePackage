@@ -64,21 +64,26 @@ def getvalue(): #Comunica com I2C e retorna valores de press?o e temperatura
         return(write_to_log)
 
 
-#while True: #Inicia Loop
-#    getvalue()
+while True: #Inicia Loop
+    if started == 1:
+        getvalue()
+    
+    
 
 print ("waiting for some bluetooth communication")    
 client_socket,address = server_socket.accept()
 print ("Accepted connection from ",address)
+
 while 1:
  
  data = client_socket.recv(1024)
  print ("Received: %s" % data)
  if (data == "1"):    #if '1' is sent from the Android App, start i2c def
   print ("doing code 1 - Starting to get i2c data")
-  getvalue()
+  started = 1
  if (data == "0"):    #if '1' is sent from the Android App, stop i2c def
   print ("doing code 0 - Stopping to get i2c data")
+  started = 0
   #code to stop?
  if (data == "q"):
   print ("doing code q - quiting program")
