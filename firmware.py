@@ -69,7 +69,7 @@ def getvalue(): #Comunica com I2C e retorna valores de press?o e temperatura
 
 print ("waiting for some bluetooth communication")    
 client_socket,address = server_socket.accept()
-print "Accepted connection from ",address
+print ("Accepted connection from ",address)
 while 5:
  
  data = client_socket.recv(1024)
