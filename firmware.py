@@ -19,7 +19,7 @@ csvname =path + date + "-" + Serial +".csv"
 
 server_socket=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
  
-port = 1
+port = 5
 server_socket.bind(("",port))
 server_socket.listen(1)
 
@@ -68,16 +68,16 @@ def getvalue(): #Comunica com I2C e retorna valores de press?o e temperatura
 #    getvalue()
 
 print ("waiting for some bluetooth communication")    
-while 1:
+while 5:
  
  data = client_socket.recv(1024)
- print "Received: %s" % data
- if (data == "1"):    #if '0' is sent from the Android App, turn OFF the LED
+ print ("Received: %s" % data)
+ if (data == "1"):    #if '1' is sent from the Android App, start i2c def
   print ("doing code 1 - Starting to get i2c data")
   getvalue()
- if (data == "0"):    #if '1' is sent from the Android App, turn OFF the LED
+ if (data == "0"):    #if '1' is sent from the Android App, stop i2c def
   print ("doing code 0 - Stopping to get i2c data")
-  GPIO.output(LED,1)
+  GPIO.output(LED,1)  #if 'q' is sent from the Android App, quit application
  if (data == "q"):
   print ("doing code q - quiting program")
   break
