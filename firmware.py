@@ -19,7 +19,7 @@ csvname =path + date + "-" + Serial +".csv"
 
 server_socket=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
  
-port = 5
+port = 1
 server_socket.bind(("",port))
 server_socket.listen(1)
 
@@ -62,33 +62,28 @@ def getvalue(): #Comunica com I2C e retorna valores de press?o e temperatura
         sensor_write = csv.writer(sensor_readings, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         write_to_log = sensor_write.writerow([Pressure,Temperature])
         return(write_to_log)
-
-
-while True: #Inicia Loop
-    if started == 1:
-        getvalue()
-    
     
 
 print ("waiting for some bluetooth communication")    
 client_socket,address = server_socket.accept()
 print ("Accepted connection from ",address)
 
-while 1:
+while True:
  
- data = client_socket.recv(1024)
- print ("Received: %s" % data)
- if (data == "1"):    #if '1' is sent from the Android App, start i2c def
-  print ("doing code 1 - Starting to get i2c data")
-  started = 1
- if (data == "0"):    #if '1' is sent from the Android App, stop i2c def
-  print ("doing code 0 - Stopping to get i2c data")
-  started = 0
-  #code to stop?
- if (data == "q"):
-  print ("doing code q - quiting program")
-  break
-
+    data = client_socket.recv(1024)
+    print ("Received: %s" % data)
+    if (data == "1"):    #if '1' is sent from the Android App, start i2c def
+        print ("doing code 1 - Starting to get i2c data")
+        started = 1
+    if (data == "0"):    #if '1' is sent from the Android App, stop i2c def
+        print ("doing code 0 - Stopping to get i2c data")
+        started = 0
+        #code to stop?
+    if (data == "q"):
+        print ("doing code q - quiting program")
+        break    
+    if started == 1:
+        getvalue()
 
 client_socket.close()
 server_socket.close()
