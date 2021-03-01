@@ -48,11 +48,11 @@ def main():
                     print('recebido 0, parando medicao')
                     started = "0"
                     send_data = "parando medicao"
-            elif data != "0" and data != "1":
+            else# data != "0" and data != "1":
                     send_data = "envie 1 ou 0 "
             # Sending the data.
             client.send(send_data)
-                          
+
             if started == "1":
 
                 pi = pigpio.pi()
@@ -105,7 +105,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
