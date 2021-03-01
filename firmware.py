@@ -48,7 +48,7 @@ def main():
                     print('recebido 0, parando medicao')
                     started = "0"
                     send_data = "parando medicao"
-            else# data != "0" and data != "1":
+            else:# data != "0" and data != "1":
                     send_data = "envie 1 ou 0 "
             # Sending the data.
             client.send(send_data)
