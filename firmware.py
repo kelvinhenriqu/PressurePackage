@@ -51,7 +51,8 @@ def main():
             elif data != "0" and data != "1":
                     send_data = "envie 1 ou 0 "
             # Sending the data.
-            client.send(send_data)              
+            client.send(send_data)
+                          
             if started == "1":
 
                 pi = pigpio.pi()
