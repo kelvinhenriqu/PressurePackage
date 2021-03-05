@@ -38,7 +38,7 @@ def main():
         while True:
             # Receivng the data.
             data = client.recv(1024) # 1024 is the buffer size.
-            print(data)
+            print('recebido = ',data)
 
             if data == "1":
                     print('recebido 1, iniciando medicao')
@@ -49,6 +49,7 @@ def main():
                     #started = "0"
                     send_data = "parando medicao"
             else:# data != "0" and data != "1":
+                    print('recebido diferente de 1 ou 0')
                     send_data = "envie 1 ou 0 "
             # Sending the data.
             client.send(send_data)
