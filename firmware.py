@@ -40,13 +40,13 @@ def main():
             data = client.recv(1024) # 1024 is the buffer size.
             print(data)
 
-            if data == '1':
+            if data == "1":
                     print('recebido 1, iniciando medicao')
-                    started = "1"
+                    #started = "1"
                     send_data = "iniciando medicao"
-            elif data == 'b'0'':
+            elif data == "0":
                     print('recebido 0, parando medicao')
-                    started = "0"
+                    #started = "0"
                     send_data = "parando medicao"
             else:# data != "0" and data != "1":
                     send_data = "envie 1 ou 0 "
@@ -95,8 +95,8 @@ def main():
 
                 #send_data = Pressure
                 #client.send(send_data)
-            #else:
-               # print("started é diferente de 0, entao nada e feito")
+            else:
+                print("started é diferente de 1, entao nada e feito")
 
     except:
         # Closing the client and server connection
