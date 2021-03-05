@@ -44,7 +44,7 @@ def main():
                     print('recebido 1, iniciando medicao')
                     started = "1"
                     send_data = "iniciando medicao"
-            elif data == '0':
+            elif data == 'b'0'':
                     print('recebido 0, parando medicao')
                     started = "0"
                     send_data = "parando medicao"
