@@ -40,11 +40,11 @@ def main():
             data = client.recv(1024) # 1024 is the buffer size.
             print(data)
 
-            if data == "1":
+            if data == '1':
                     print('recebido 1, iniciando medicao')
                     started = "1"
                     send_data = "iniciando medicao"
-            elif data == "0":
+            elif data == '0':
                     print('recebido 0, parando medicao')
                     started = "0"
                     send_data = "parando medicao"
@@ -93,8 +93,8 @@ def main():
                     write_to_log = sensor_write.writerow([Pressure,Temperature])
                     return(write_to_log)
 
-                send_data = Pressure
-                client.send(send_data)
+                #send_data = Pressure
+                #client.send(send_data)
             #else:
                # print("started é diferente de 0, entao nada e feito")
 
