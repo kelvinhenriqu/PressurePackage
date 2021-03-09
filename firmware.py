@@ -9,7 +9,7 @@ import bluetooth
 from datetime import datetime
 
 Debug = 1
-started = "1"
+started = "0"
 Serial="21001" #Numero Serial do produto
 path = "/mnt/usb_share/logs/"
 
