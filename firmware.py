@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-__VERSION__ = 1.5
+__VERSION__ = 1.6
 
 import time
 import pigpio
@@ -40,7 +40,7 @@ def main():
             data = client.recv(1024) # 1024 is the buffer size.
             print('recebido =',data)
 
-            if data == "wx":
+            if data == "b'1'":
                     print('recebido 1, iniciando medicao')
                     #started = "1"
                     send_data = "iniciando medicao"
