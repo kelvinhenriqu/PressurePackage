@@ -9,7 +9,7 @@ import bluetooth
 from datetime import datetime
 
 Debug = 1
-started = "0"
+started = "1"
 Serial="21001" #Numero Serial do produto
 path = "/mnt/usb_share/logs/"
 
@@ -28,8 +28,7 @@ try:
 except:
         print("Bluetooth Binding Failed")
 server.listen(1) # One connection at a time
-# Server accepts the clients request and assigns a mac address.
-client, address = server.accept()
+client, address = server.accept() # Server accepts the clients request and assigns a mac address.
 print("Connected To", address)
 print("Client:", client)
 
@@ -40,7 +39,7 @@ def main():
             data = client.recv(1024) # 1024 is the buffer size.
             print('recebido =',data)
 
-            if data == "b'1'":
+            if data == "'1'":
                     print('recebido 1, iniciando medicao')
                     #started = "1"
                     send_data = "iniciando medicao"
@@ -94,8 +93,8 @@ def main():
                     write_to_log = sensor_write.writerow([Pressure,Temperature])
                     return(write_to_log)
 
-                #send_data = Pressure
-                #client.send(send_data)
+                send_data = Pressure
+                client.send(send_data)
             else:
                 print("started é diferente de 1, entao nada e feito")
 
