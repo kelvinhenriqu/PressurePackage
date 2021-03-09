@@ -35,24 +35,7 @@ print("Client:", client)
 def main():
     try:
         while True:
-            # Receivng the data.
-            data = client.recv(1024) # 1024 is the buffer size.
-            print('recebido =',data)
-
-            if data == "'1'":
-                    print('recebido 1, iniciando medicao')
-                    #started = "1"
-                    send_data = "iniciando medicao"
-            elif data == "0":
-                    print('recebido 0, parando medicao')
-                    #started = "0"
-                    send_data = "parando medicao"
-            else:# data != "0" and data != "1":
-                    print('recebido diferente de 1 ou 0')
-                    send_data = "envie 1 ou 0 "
-            # Sending the data.
-            client.send(send_data)
-
+            
             if started == "1":
 
                 pi = pigpio.pi()
@@ -95,8 +78,25 @@ def main():
 
                 send_data = Pressure
                 client.send(send_data)
-            else:
-                print("started é diferente de 1, entao nada e feito")
+                print("started é 1, entao medição foi realizada")
+
+            # Receivng the data.
+            data = client.recv(1024) # 1024 is the buffer size.
+            print('recebido =',data)
+
+            if data == "1":
+                    print('recebido 1, iniciando medicao')
+                    #started = "1"
+                    send_data = "iniciando medicao"
+            if data == "0":
+                    print('recebido 0, parando medicao')
+                    #started = "0"
+                    send_data = "parando medicao"
+            if data != "0" and data != "1":
+                    print('recebido diferente de 1 ou 0')
+                    send_data = "envie 1 ou 0 "
+            
+            client.send(send_data) # Sending the data over bluetooth
 
     except:
         # Closing the client and server connection
