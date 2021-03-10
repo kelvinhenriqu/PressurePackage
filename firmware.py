@@ -29,8 +29,8 @@ print "Accepted connection from ",address
 
 
 def main():
-#    try:
-#        while True:
+    try:
+        #while True:
         
             data = client_sock.recv(1024)
             print "received [%s]" % data
@@ -68,7 +68,8 @@ def main():
                 if started == 1:
                     print "but started is 1 so entering PressureValue"
                     PressureValue()  
-
+    else:
+        PressureValue()
 #    except:
 #        # Closing the client and server connection
 #        client_sock.close()
