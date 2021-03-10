@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#__VERSION__ = 1.6
+__VERSION__ = 1.7
 
 import time
 import pigpio
