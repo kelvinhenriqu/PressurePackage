@@ -122,6 +122,7 @@ def PressureValue():
         print "started é 1, entao medição foi realizada"
         main()
     else:
+        time.sleep(0.2)
         print ("started isn't 1")
         main()
 
