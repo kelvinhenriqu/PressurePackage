@@ -28,7 +28,7 @@ client_sock,address = server_sock.accept()
 print "Accepted connection from ",address
 
 
-def main():
+def main(): 
     try:
         #while True:
         
