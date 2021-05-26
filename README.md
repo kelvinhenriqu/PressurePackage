@@ -16,3 +16,5 @@
 ## 📫 Connections :
 
 [![AUTOSTART](https://img.shields.io/badge/autostart%20service%20-%23323330.svg?&style=for-the-badge&logo=autostart%20ff&logoColor=black&color=8000FF)](https://github.com/kelvinhenriqu/PressurePackage/tree/main/autostart)
+[![AUTOSTART](https://img.shields.io/badge/usbshare%20-%23323330.svg?&style=for-the-badge&logo=usbshare%20ff&logoColor=black&color=8000FF)](https://github.com/kelvinhenriqu/PressurePackage/tree/main/usbshare)
+[![AUTOSTART](https://img.shields.io/badge/Backup%20-%23323330.svg?&style=for-the-badge&logo=backup%20ff&logoColor=black&color=8000FF)](https://github.com/kelvinhenriqu/PressurePackage/tree/main/backup)
