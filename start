@@ -1,25 +1,31 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import os
 import time
 
 
 def update():
+    os.system('cd ~/programa')
     os.system('rm backup/firmware.py.backup')   #remove old firmware backup file
+    time.sleep(1)
     os.system('rm backup/Sensor.py.backup')     #remove old firmware Sensor file
     os.system('mv firmware.py backup/firmware.py.backup')#move and rename file.py to file.py.backup inside backup folder
+    time.sleep(1)
     os.system('mv Sensor.py backup/Sensor.py.backup')    #move and rename file.py to file.py.backup inside backup folder
 
     time.sleep(1)
     os.system('wget -O firmware.py https://raw.githubusercontent.com/kelvinhenriqu/PressurePackage/main/firmware.py')#download from JT's github the Firmware.py file
-    os.system('wget -O firmware.py https://raw.githubusercontent.com/kelvinhenriqu/PressurePackage/main/Sensor.py')#download from JT's github the Sensor.py file
+    time.sleep(1)
+    os.system('wget -O Sensor.py https://raw.githubusercontent.com/kelvinhenriqu/PressurePackage/main/Sensor.py')#download from JT's github the Sensor.py file
     print('successfully updated')
     print('starting main program')
-    time.sleep(5)
-    os.system('python firmware.py')#start program
+    time.sleep(1)
+    os.system('python3 firmware.py')#start program
 
 
 def checkupdate():
+    os.system('cd ~/programa')
     os.system('wget -O Version.txt https://raw.githubusercontent.com/kelvinhenriqu/PressurePackage/main/Version.txt')#download from JT's github the version file
 
     new_version = ''
@@ -51,7 +57,7 @@ def checkupdate():
         print("don't neet to update")
         os.system('rm Version.txt')
         print('starting main program')
-        os.system('python firmware.py')
+        os.system('python3 firmware.py')
 
 
 checkupdate()
