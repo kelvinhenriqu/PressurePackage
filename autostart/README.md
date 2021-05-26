@@ -1,4 +1,7 @@
 # PressurePackage
+
+[![AUTOSTART](https://img.shields.io/badge/autostart%20service%20-%23323330.svg?&style=for-the-badge&logo=autostart%20ff&logoColor=black&color=FF0000)](https://github.com/kelvinhenriqu/PressurePackage/tree/main/autostart)
+
 The pressurepackage.service need to be moved to /lib/systemd/system/
 can be done using the following command:
 
