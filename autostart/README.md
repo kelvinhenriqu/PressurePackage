@@ -21,4 +21,4 @@ cp iniciar.sh ~/iniciar.sh
 ```
 ## 📫 Connections :
 
-[![AUTOSTART](https://img.shields.io/badge/Main%20-%23323330.svg?&style=for-the-badge&logo=Main%20ff&logoColor=black&color=8000FF)](https://kelvinhenriqu.github.io/PressurePackage/)
+[![AUTOSTART](https://img.shields.io/badge/Main%20-%23323330.svg?&style=for-the-badge&logo=Main%20ff&logoColor=black&color=8000FF)](https://github.com/kelvinhenriqu/PressurePackage/tree/main/)
