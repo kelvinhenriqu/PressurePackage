@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__VERSION__ = 2.5
+__VERSION__ = 2.6
 
 from Sensor import Measurement
 import time
@@ -27,26 +27,26 @@ if __name__ == "__main__":
 
             if Ddata == "1":
                 if Start != 1:
-                    bluetoothdata = "Received 1, Starting measurement"
+                    bluetoothdata = "   Starting measurement,    "
                     print (bluetoothdata)
                     client_sock.send(bluetoothdata)
                     Start = 1
 
             elif Ddata == "2":
                 if Start == 1:
-                    bluetoothdata = "Received 2, Stopping measurement"
+                    bluetoothdata = "   Stopping measurement,    "
                     print (bluetoothdata)
                     client_sock.send(bluetoothdata)
                     Start = 0
 
             elif Ddata == "3":
-                bluetoothdata = "Received 3, Debug activated"
+                bluetoothdata = "   Debug activated,    "
                 print (bluetoothdata)
                 client_sock.send(bluetoothdata)
                 Measurement.Debug(1)
 
             elif Ddata == "4":
-                bluetoothdata = "Received 4, Debug deactivated"
+                bluetoothdata = "   Debug deactivated,    "
                 print (bluetoothdata)
                 client_sock.send(bluetoothdata)
                 Measurement.Debug(0)      
@@ -58,10 +58,9 @@ if __name__ == "__main__":
                 P = Measurement.GetValue(1) #recebe pressão
                 T = Measurement.GetValue(2) #recebe temperatura
                 print("Now Pressure, Temperature and Start are: %s, %s and %s" %(P,T,Start))
-                bluetoothdata = str(P) #dado que sera enviado via bluetooth precisa ser uma string
+                bluetoothdata = 'P ' + str(P) + ',' + 'T ' + str(T) #dado que sera enviado via bluetooth precisa ser uma string
                 client_sock.send(bluetoothdata)
-                bluetoothdata = str(T) #dado que sera enviado via bluetooth precisa ser uma string
-                client_sock.send(bluetoothdata)
+
 
     except KeyboardInterrupt:
         print ("\nprograma interrompido pelo usuario")

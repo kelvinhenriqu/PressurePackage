@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__VERSION__ = 2.5
+__VERSION__ = 2.6
 
 import time
 import pigpio
@@ -36,11 +36,11 @@ class Measurement :
             p3 = bin(d[3])[2:].zfill(8) #BridgeDat3
             t1 = bin(d[4])[2:].zfill(8) #TempDat1
             t2 = bin(d[5])[2:].zfill(8) #TempDat2
-            press = p1+p2+p3            #concatenate values in bytes
-            dpress = int(press, 2)      #convert to Decimal
+            bpress = p1+p2+p3            #concatenate values in bytes
+            dpress = int(bpress, 2)      #convert to Decimal
             Pressure = (((((dpress/12305550)*100)*6)/100)-2.2)*1.042
-            temp = t1+t2                #concatenate values in bytes
-            dtemp = int(temp, 2)        #convert to Decimal
+            btemp = t1+t2                #concatenate values in bytes
+            dtemp = int(btemp, 2)        #convert to Decimal
             Temperature = (((dtemp/65536)*190)-40)*0.954
             
         except pigpio.error:
