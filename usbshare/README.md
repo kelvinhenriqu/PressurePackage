@@ -1,11 +1,11 @@
 # PressurePackage
 
-> Backup Folder
+> UsbShare Service
 
 
 ## 💻 Explanation:
 
-* This folder needs to be in the same folder of firmware files, here is stored all the backup files after an update
+* This folder contain the files of the old prototype of USBSHARE
 
 ## 📫 Connections :
 
