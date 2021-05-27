@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__VERSION__ = 2.2
+__VERSION__ = 2.3
 
 import time
 import pigpio
@@ -21,7 +21,7 @@ class Measurement :
     def GetValue(measure):
         global Debug
         try:
-            print ("doing Measurement\n")
+            #print ("doing Measurement\n")
         
             pi = pigpio.pi()
             h = pi.i2c_open(1, 0x78)
@@ -43,6 +43,11 @@ class Measurement :
             dtemp = int(temp, 2)        #convert to Decimal
             Temperature = (((dtemp/65536)*190)-40)*0.954
             
+        except pigpio.error:
+            print ("i2c error, is sensor connected ?\n")
+#       except:
+#           print ("unknown error occoured")
+        finally:
             if Debug == 1:
                 print()
                 if Pressure < -1 or Pressure > 5:
@@ -54,18 +59,10 @@ class Measurement :
                     print ("out of range\n")
                 else:
                     print ("Temperature: %s ºC\n"%(Temperature))
-                    #print("medicoes = ", contador)
 
-        except pigpio.error:
-            print ("i2c error, is sensor connected ?\n")
-#       except:
-#           print ("unknown error occoured")
-        finally:
-            print ("Currently Pressure is %s\n"%Pressure)
-
-        if measure == 1:
+        if measure == 1:    #firmware request Pressure
             return Pressure
-        elif measure == 2:
+        elif measure == 2:  #firmware request Temperature
             return Temperature
 
 
@@ -75,8 +72,8 @@ class Measurement :
     
 
 if __name__ == "__main__":
-    P = Measurement.GetValue(1)
-    T = Measurement.GetValue(2)
+    P = Measurement.GetValue(1) #ask for temperature
+    T = Measurement.GetValue(2) #ask for pressure
     print("\npressure is %s and temperature is %s"%(P,T))
 
 
