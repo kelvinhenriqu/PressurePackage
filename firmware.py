@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__VERSION__ = 2.1
+__VERSION__ = 2.2
 
 from Sensor import Measurement
 import time
@@ -13,8 +13,6 @@ port = 1
 server_sock.bind(("",port))
 server_sock.listen(1)
 Start = 0
-
-Presao = Measurement.GetValue()
 
 print ("waiting for any bluetooth connection")
 client_sock,address = server_sock.accept()
@@ -43,19 +41,27 @@ if __name__ == "__main__":
                     client_sock.send(bluetoothdata)
                     Start = 0
 
-            elif Ddata == "0":
-                print("dados = 0")        
+            elif Ddata == "3":
+                print("Received 3, Debug activated")
+                Measurement.Debug(1)
+
+            elif Ddata == "4":
+                print("Received 4, Debug deactivated")  
+                Measurement.Debug(0)      
 
             else:
                 print("value not found")
         
             if Start == 1:
-                Presao0 = Measurement.GetValue()
-                print("Now Pressure and Start are: %s and %s" %(Presao0,Start))
-                bluetoothdata = str(Presao0)#dado que sera enviado via bluetooth precisa ser uma string
+                P = Measurement.GetValue(1)
+                T = Measurement.GetValue(2)
+                print("Now Pressure, Temperature and Start are: %s, %s and %s" %(P,T,Start))
+                bluetoothdata = str(P,T)#dado que sera enviado via bluetooth precisa ser uma string
                 client_sock.send(bluetoothdata)
             else:
                 print ("Start isn't 1 inside main")
     except KeyboardInterrupt:
         print ("\nprograma interrompido pelo usuario")
+    except UnicodeDecodeError:
+        print ("\nrecebido valor impossivel de ser reconhecido")
 

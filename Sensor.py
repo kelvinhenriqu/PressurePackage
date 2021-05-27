@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__VERSION__ = 2.1
+__VERSION__ = 2.2
 
 import time
 import pigpio
@@ -18,7 +18,8 @@ date = now.strftime("%d%m%y%H%M%S")
 csvname =path + date + "-" + Serial +".csv"
 
 class Measurement :
-    def GetValue():
+    def GetValue(int x):
+        global Debug
         try:
             print ("doing Measurement\n")
         
@@ -42,7 +43,7 @@ class Measurement :
             dtemp = int(temp, 2)        #convert to Decimal
             Temperature = (((dtemp/65536)*190)-40)*0.954
             
-            if Debug > 0:
+            if Debug == 1:
                 print()
                 if Pressure < -1 or Pressure > 5:
                     print ("out of range\n")
@@ -62,7 +63,15 @@ class Measurement :
         finally:
             print ("Currently Pressure is %s\n"%Pressure)
 
-        return Pressure
+        if x == 1:
+            return Pressure
+        elif x == 2:
+            return Temperature
+
+
+    def Debug(int x)
+        global Debug
+        Debug = x
     
 
 if __name__ == "__main__":
