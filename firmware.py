@@ -22,10 +22,9 @@ if __name__ == "__main__":
     try:
         while True:
         
-            #print("Initial Pressure and Temperature is: %s and %s" %(globals.Pressure,globals.Temperature))
             Bdata = client_sock.recv(1024) #dados em binario
-            Ddata = Bdata.decode('utf-8')
-            print ("received %s that means %s" %(Bdata,Ddata))   
+            Ddata = Bdata.decode('utf-8') #conversão de dados para decimal
+            print ("\nreceived %s that means %s" %(Bdata,Ddata))   
 
             if Ddata == "1":
                 if Start != 1:
@@ -42,24 +41,29 @@ if __name__ == "__main__":
                     Start = 0
 
             elif Ddata == "3":
-                print("Received 3, Debug activated")
+                bluetoothdata = "Received 3, Debug activated"
+                print (bluetoothdata)
+                client_sock.send(bluetoothdata)
                 Measurement.Debug(1)
 
             elif Ddata == "4":
-                print("Received 4, Debug deactivated")  
+                bluetoothdata = "Received 4, Debug activated"
+                print (bluetoothdata)
+                client_sock.send(bluetoothdata)
                 Measurement.Debug(0)      
 
             else:
                 print("value not found")
         
             if Start == 1:
-                P = Measurement.GetValue(1)
-                T = Measurement.GetValue(2)
+                P = Measurement.GetValue(1) #recebe pressão
+                T = Measurement.GetValue(2) #recebe temperatura
                 print("Now Pressure, Temperature and Start are: %s, %s and %s" %(P,T,Start))
-                bluetoothdata = str(P,T)#dado que sera enviado via bluetooth precisa ser uma string
+                bluetoothdata = str(P) #dado que sera enviado via bluetooth precisa ser uma string
                 client_sock.send(bluetoothdata)
-            else:
-                print ("Start isn't 1 inside main")
+                bluetoothdata = str(T) #dado que sera enviado via bluetooth precisa ser uma string
+                client_sock.send(bluetoothdata)
+
     except KeyboardInterrupt:
         print ("\nprograma interrompido pelo usuario")
     except UnicodeDecodeError:

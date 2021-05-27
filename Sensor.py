@@ -18,7 +18,7 @@ date = now.strftime("%d%m%y%H%M%S")
 csvname =path + date + "-" + Serial +".csv"
 
 class Measurement :
-    def GetValue(int x):
+    def GetValue(measure):
         global Debug
         try:
             print ("doing Measurement\n")
@@ -63,19 +63,21 @@ class Measurement :
         finally:
             print ("Currently Pressure is %s\n"%Pressure)
 
-        if x == 1:
+        if measure == 1:
             return Pressure
-        elif x == 2:
+        elif measure == 2:
             return Temperature
 
 
-    def Debug(int x)
+    def Debug(tfvalue):
         global Debug
-        Debug = x
+        Debug = tfvalue
     
 
 if __name__ == "__main__":
-    Measurement.GetValue()
+    P = Measurement.GetValue(1)
+    T = Measurement.GetValue(2)
+    print("\npressure is %s and temperature is %s"%(P,T))
 
 
 
