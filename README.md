@@ -6,11 +6,11 @@
 ## 💻 Explanation:
 
 * pair-bluetooth.sh can be used to pair new devices without UI
-```
+```python
 sudo sh pair-bluetooth.sh
 ```
 * socket_close.py can be used to stop bluetooth service if any problem ocorers
-```
+```python
 sudo python3 socket_close.py
 ```
 * inside autostart folder are the files to start the autostart service 
