@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__VERSION__ = 2.4
+__VERSION__ = 2.5
 
 from Sensor import Measurement
 import time
