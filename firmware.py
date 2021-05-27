@@ -67,4 +67,6 @@ if __name__ == "__main__":
         print ("\nprograma interrompido pelo usuario")
     except UnicodeDecodeError:
         print ("\nrecebido valor impossivel de ser reconhecido")
+    except bluetooth.btcommon.BluetoothError:
+        print ("\nconexão cancelada pelo usuario")
 

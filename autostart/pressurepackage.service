@@ -2,11 +2,14 @@
 Description=Pressure_Package_Start_Program
 After=network.target
 
+StartLimitIntervalSec=500
+StartLimitBurst=5
+
 [Service]
 Type=idle
 SyslogIdentifier=SampleService
 ExecStart=sh /home/pi/iniciar.sh
-Restart=on-failure
+Restart=always
 RestartSec=5
 User=root
 Group=root
