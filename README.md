@@ -23,3 +23,4 @@ sudo python3 socket_close.py
 [![AUTOSTART](https://img.shields.io/badge/usbshare%20-%23323330.svg?&style=for-the-badge&logo=usbshare%20ff&logoColor=black&color=8000FF)](https://github.com/kelvinhenriqu/PressurePackage/tree/main/usbshare)
 [![AUTOSTART](https://img.shields.io/badge/Backup%20-%23323330.svg?&style=for-the-badge&logo=backup%20ff&logoColor=black&color=8000FF)](https://github.com/kelvinhenriqu/PressurePackage/tree/main/backup)
 [![AUTOSTART](https://img.shields.io/badge/Bluetooth%20Reinstall%20-%23323330.svg?&style=for-the-badge&logo=Bluetooth%20ff&logoColor=black&color=8000FF)](https://github.com/kelvinhenriqu/PressurePackage/tree/main/Bluetooth_Reinstall)
+[![AUTOSTART](https://img.shields.io/badge/measurements%20-%23323330.svg?&style=for-the-badge&logo=measurements%20ff&logoColor=black&color=8000FF)](https://github.com/kelvinhenriqu/PressurePackage/tree/main/measurements)
