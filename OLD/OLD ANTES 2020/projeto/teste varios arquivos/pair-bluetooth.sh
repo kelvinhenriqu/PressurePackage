@@ -1,0 +1,10 @@
+echo "$(tput setaf 3)execute os comandos a baixo:"
+echo "power on"
+echo "agent on"
+echo "discoverable on"
+echo "pairable on"
+echo "scan on"
+echo "-------"
+echo "para pair, pair 00:00:00:00:00:00"
+echo "para remover, remove 00:00:00:00:00:00$(tput setaf 7)"
+sudo bluetoothctl
