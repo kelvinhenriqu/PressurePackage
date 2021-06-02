@@ -30,7 +30,8 @@ def csvname():
 
 if __name__ == "__main__":
     try:
-        name = csvname()      
+        name = csvname()  
+        Debug = 0    
         while True:                  
             Bdata = client_sock.recv(1024) #dados em binario
             Ddata = Bdata.decode('utf-8') #conversão de dados para decimal
@@ -51,17 +52,17 @@ if __name__ == "__main__":
                     client_sock.send(bluetoothdata)
                     Running = 0
 
-            elif Ddata == "3":
-                bluetoothdata = "   Debug activated,    "
-                print (bluetoothdata)
-                client_sock.send(bluetoothdata)
-                Measurement.Debug(1)
-
-            elif Ddata == "4":
-                bluetoothdata = "   Debug deactivated,    "
-                print (bluetoothdata)
-                client_sock.send(bluetoothdata)
-                Measurement.Debug(0)     
+            elif Ddata == "d":
+                if Debug == 1:
+                    bluetoothdata = "   Debug Deactivated,    "
+                    print (bluetoothdata)
+                    client_sock.send(bluetoothdata)
+                    Measurement.Debug(0)  
+                elif Debug == 0:
+                    bluetoothdata = "   Debug activated,    "
+                    print (bluetoothdata)
+                    client_sock.send(bluetoothdata)
+                    Measurement.Debug(1) 
 
             elif Ddata == "5":                
                 bluetoothdata = "    csvtest name is: " + name
