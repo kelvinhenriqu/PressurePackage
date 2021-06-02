@@ -44,7 +44,7 @@ class Measurement :
             t2 = bin(d[5])[2:].zfill(8) #TempDat2
             bpress = p1+p2+p3            #concatenate values in bytes
             dpress = int(bpress, 2)      #convert to Decimal
-            Pressure = (((((dpress/12305550)*100)*6)/100)-2.2)*1.042
+            Pressure = (((((dpress/12305550)*100)*6)/100)-2.2)*1.042 #calibration factor is 1.042
             btemp = t1+t2                #concatenate values in bytes
             dtemp = int(btemp, 2)        #convert to Decimal
             Temperature = (((dtemp/65536)*190)-40)*0.954
