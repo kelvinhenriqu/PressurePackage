@@ -1,30 +1,24 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__VERSION__ = 3.0
+__VERSION__ = 2.6
 
 import time
 import pigpio
 import csv
+from datetime import datetime
 
 Debug = 0
 
-def SaveSD(P,T,Filename):
-    path = "/home/pi/measurements/" # path to save the file
-    Directory = str(path) + str(Filename) + ".csv"
+Serial="21001" #Product Serial Number
+path = "/mnt/usb_share/logs/"
 
-    with open(Directory, mode='a') as sensor_readings:
-        sensor_write = csv.writer(sensor_readings, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        write_to_log = sensor_write.writerow([P,T])
-        return(write_to_log)
+now = datetime.now()
+date = now.strftime("%d%m%y%H%M%S")
+csvname =path + date + "-" + Serial +".csv"
 
 class Measurement :
-    def Debug(tfvalue):
-        global Debug
-        Debug = tfvalue
-
-    def GetValue(measure,filename):
-
+    def GetValue(measure):
         global Debug
         try:
             #print ("doing Measurement\n")
@@ -48,7 +42,6 @@ class Measurement :
             btemp = t1+t2                #concatenate values in bytes
             dtemp = int(btemp, 2)        #convert to Decimal
             Temperature = (((dtemp/65536)*190)-40)*0.954
-            Save = SaveSD(Pressure,Temperature,filename)
             
         except pigpio.error:
             print ("i2c error, is sensor connected ?\n")
@@ -71,12 +64,16 @@ class Measurement :
             return Pressure
         elif measure == 2:  #firmware request Temperature
             return Temperature
+
+
+    def Debug(tfvalue):
+        global Debug
+        Debug = tfvalue
     
 
 if __name__ == "__main__":
-    filename = "9999"
-    P = Measurement.GetValue(1,filename) #ask for temperature
-    T = Measurement.GetValue(2,filename) #ask for pressure
+    P = Measurement.GetValue(1) #ask for temperature
+    T = Measurement.GetValue(2) #ask for pressure
     print("\npressure is %s and temperature is %s"%(P,T))
 
 
