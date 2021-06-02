@@ -30,8 +30,8 @@ def csvname():
 
 if __name__ == "__main__":
     try:
-        while True: 
-            name = csvname()       
+        name = csvname()      
+        while True:                  
             Bdata = client_sock.recv(1024) #dados em binario
             Ddata = Bdata.decode('utf-8') #conversão de dados para decimal
             print ("\nreceived %s that means %s" %(Bdata,Ddata))             
@@ -89,7 +89,7 @@ if __name__ == "__main__":
                         filename = int(name)
                         print("CSV File name setup is: ",filename)
                     T = Measurement.GetValue(2,filename) #recebe temperatura
-                    print("Pressure is: %s"%T)
+                    print("Temperature is: %s"%T)
                     client_sock.send(str(T))  
                 else:
                     print("not running")
