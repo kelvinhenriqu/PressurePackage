@@ -24,15 +24,15 @@ def csvname():
     csvname = ""
     timestamp = datetime.now().strftime('%d%m%y%H%M%S')
     Serial = "21002" #Product Serial Number    
-    csvname = Serial + timestamp #Create the filename, example: 21002020621134600 that is 21002.02-06-21.13:46:00
-    print(csvname)
+    csvname = Serial + timestamp #Create the filename, example: 21002020621134600 that is 21002.02/06/21.13:46:00
+    #print(csvname)
     return csvname
 
 if __name__ == "__main__":
     try:
-        name = csvname()  
         Debug = 0    
-        while True:                  
+        while True: 
+            name = csvname()                  
             Bdata = client_sock.recv(1024) #dados em binario
             Ddata = Bdata.decode('utf-8') #conversão de dados para decimal
             print ("\nreceived %s that means %s" %(Bdata,Ddata))             
@@ -57,12 +57,14 @@ if __name__ == "__main__":
                     bluetoothdata = "   Debug Deactivated,    "
                     print (bluetoothdata)
                     client_sock.send(bluetoothdata)
-                    Measurement.Debug(0)  
+                    Measurement.Debug(0)
+                    Debug = 0  
                 elif Debug == 0:
                     bluetoothdata = "   Debug activated,    "
                     print (bluetoothdata)
                     client_sock.send(bluetoothdata)
-                    Measurement.Debug(1) 
+                    Measurement.Debug(1)
+                    Debug = 1 
 
             elif Ddata == "5":                
                 bluetoothdata = "    csvtest name is: " + name
