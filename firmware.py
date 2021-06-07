@@ -37,7 +37,7 @@ if __name__ == "__main__":
             Ddata = Bdata.decode('utf-8') #conversão de dados para decimal
             print ("\nreceived %s that means %s" %(Bdata,Ddata))             
 
-            if Ddata == "1":
+            if Ddata == "1":   #Start measure
                 if Running != 1:
                     bluetoothdata = "   Starting measurement,    "
                     print (bluetoothdata)
@@ -45,14 +45,14 @@ if __name__ == "__main__":
                     Running = 1
                     Config = 1
 
-            elif Ddata == "2":
+            elif Ddata == "2": #Stop measure
                 if Running == 1:
                     bluetoothdata = "   Stopping measurement,    "
                     print (bluetoothdata)
                     client_sock.send(bluetoothdata)
                     Running = 0
 
-            elif Ddata == "d":
+            elif Ddata == "d": #Debug On & Off
                 if Debug == 1:
                     bluetoothdata = "   Debug Deactivated,    "
                     print (bluetoothdata)
@@ -66,12 +66,12 @@ if __name__ == "__main__":
                     Measurement.Debug(1)
                     Debug = 1 
 
-            elif Ddata == "5":                
+            elif Ddata == "5": #test csv filename generation 
                 bluetoothdata = "    csvtest name is: " + name
                 print (bluetoothdata)
                 client_sock.send(bluetoothdata)
 
-            elif Ddata == "p": 
+            elif Ddata == "p": #request pressure
                 if Running == 1:
                     if Config == 1:
                         Config = 0
@@ -85,7 +85,7 @@ if __name__ == "__main__":
                     bluetoothdata = "F"
                     client_sock.send(bluetoothdata)
 
-            elif Ddata == "t": 
+            elif Ddata == "t": #request temperature
                 if Running == 1:
                     if Config == 1:
                         Config = 0
@@ -99,9 +99,8 @@ if __name__ == "__main__":
                     bluetoothdata = "F"
                     client_sock.send(bluetoothdata)             
 
-            else:
+            else:              #if receive unknow data
                 print("value not found")
-
 
     except KeyboardInterrupt:
         print ("\nprograma interrompido pelo usuario")
