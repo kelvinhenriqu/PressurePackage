@@ -19,10 +19,10 @@ Config = 0
 
 print ("waiting for any bluetooth connection")
 client_sock,address = server_sock.accept()
-client_sock.settimeout(0.05) #maximum time to wait for bluetooth data
+client_sock.settimeout(0.01) #maximum time to wait for bluetooth data
 print ("Accepted connection from ",address)
 
-def csvname():
+def GenCSVName():
     csvname = ""
     timestamp = datetime.now().strftime('%d%m%y%H%M%S')
     Serial = "21002" #Product Serial Number    
@@ -31,11 +31,10 @@ def csvname():
     return csvname
 
 if __name__ == "__main__":
-    
+    name = GenCSVName() 
     Debug = 0    
     while True:
-        try: 
-            name = csvname()                  
+        try:                              
             Bdata = client_sock.recv(1024) #dados em binario
             Ddata = Bdata.decode('utf-8') #conversão de dados para decimal
             print ("\nreceived %s that means %s" %(Bdata,Ddata))             
@@ -81,6 +80,13 @@ if __name__ == "__main__":
                 client_sock.send(bluetoothdata)
                 sys.exit()
 
+            elif Ddata == "l":
+                bluetoothdata = "Last CSV Created is:  "
+                client_sock.send(bluetoothdata)                
+                client_sock.send(name)
+                print ("Last CSV Created is %s" %name)
+                             
+
             else:              #If Receive Unknow Data
                 print("value not found")
 
@@ -90,8 +96,8 @@ if __name__ == "__main__":
             print ("\nrecebido valor impossivel de ser reconhecido\n")
         except bluetooth.btcommon.BluetoothError: #if nothing received
 
-            if Running == 1:
-                if Config == 1:
+            if Running == 1: #if any measuare is running                
+                if Config == 1: #if config process is necessary
                     Config = 0
                     filename = int(name)
                     print("CSV File name setup is: ",filename)
