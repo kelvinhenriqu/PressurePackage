@@ -15,20 +15,18 @@ def SaveSD(P,T,Filename):
 
     with open(Directory, mode='a') as sensor_readings:
         sensor_write = csv.writer(sensor_readings, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        write_to_log = sensor_write.writerow([P,T])
+        write_to_log = sensor_write.writerow([P,T]) #write P & T in sdcard
         return(write_to_log)
 
 class Measurement :
-    def Debug(tfvalue):
+    def Debug(self):
         global Debug
-        Debug = tfvalue
+        Debug = self
 
     def GetValue(measure,filename):
 
         global Debug
-        try:
-            #print ("doing Measurement\n")
-        
+        try:        
             pi = pigpio.pi()
             h = pi.i2c_open(1, 0x78)
             pi.i2c_write_device(h, [0xAC])
@@ -47,13 +45,15 @@ class Measurement :
             Pressure = (((((dpress/12305550)*100)*6)/100)-2.2)*1.042 #calibration factor is 1.042
             btemp = t1+t2                #concatenate values in bytes
             dtemp = int(btemp, 2)        #convert to Decimal
-            Temperature = (((dtemp/65536)*190)-40)*0.954
+            Temperature = (((dtemp/65536)*190)-40)*0.954 #calibration factor is 0.954
             Save = SaveSD(Pressure,Temperature,filename)
             
         except pigpio.error:
-            print ("i2c error, is sensor connected ?\n")
+            print ("\ni2c error, is sensor connected ?\n")
 #       except:
 #           print ("unknown error occoured")
+        except KeyboardInterrupt:
+            print ("\ncancelled by user\n")
         finally:
             if Debug == 1:
                 print()
@@ -74,10 +74,12 @@ class Measurement :
     
 
 if __name__ == "__main__":
-    filename = "9999"
-    P = Measurement.GetValue(1,filename) #ask for temperature
-    T = Measurement.GetValue(2,filename) #ask for pressure
-    print("\npressure is %s and temperature is %s"%(P,T))
+
+    while True:
+        filename = "9999" #test filename
+        P = Measurement.GetValue(1,filename) #ask for temperature
+        T = Measurement.GetValue(2,filename) #ask for pressure
+        print("\npressure: %s \ntemperature: %s\n"%(P,T))
 
 
 
