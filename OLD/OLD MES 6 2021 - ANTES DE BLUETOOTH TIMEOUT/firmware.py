@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__VERSION__ = 5.0
+__VERSION__ = 3.0
 
 from Sensor import Measurement
 import time
 import bluetooth
 from datetime import datetime
-import sys
 
 server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 
@@ -19,7 +18,6 @@ Config = 0
 
 print ("waiting for any bluetooth connection")
 client_sock,address = server_sock.accept()
-client_sock.settimeout(0.05) #maximum time to wait for bluetooth data
 print ("Accepted connection from ",address)
 
 def csvname():
@@ -31,10 +29,9 @@ def csvname():
     return csvname
 
 if __name__ == "__main__":
-    
-    Debug = 0    
-    while True:
-        try: 
+    try:
+        Debug = 0    
+        while True: 
             name = csvname()                  
             Bdata = client_sock.recv(1024) #dados em binario
             Ddata = Bdata.decode('utf-8') #conversão de dados para decimal
@@ -54,7 +51,6 @@ if __name__ == "__main__":
                     print (bluetoothdata)
                     client_sock.send(bluetoothdata)
                     Running = 0
-                    Config = 0
 
             elif Ddata == "d": #Debug On & Off
                 if Debug == 1:
@@ -75,28 +71,41 @@ if __name__ == "__main__":
                 print (bluetoothdata)
                 client_sock.send(bluetoothdata)
 
-            elif Ddata == "s":
-                bluetoothdata = "Force Stop"
-                print (bluetoothdata)
-                client_sock.send(bluetoothdata)
-                sys.exit()
+            elif Ddata == "p": #Request Pressure
+                if Running == 1:
+                    if Config == 1:
+                        Config = 0
+                        filename = int(name)
+                        print("CSV File name setup is: ",filename)
+                    P = Measurement.GetValue(1,filename,Running) #recebe pressão
+                    print("Pressure is: %s"%P)
+                    client_sock.send(str(P))
+                else:
+                    print("not running")
+                    bluetoothdata = "F"
+                    client_sock.send(bluetoothdata)
+
+            elif Ddata == "t": #Request Temperature
+                if Running == 1:
+                    if Config == 1:
+                        Config = 0
+                        filename = int(name)
+                        print("CSV File name setup is: ",filename)
+                    T = Measurement.GetValue(2,filename,Running) #recebe temperatura
+                    print("Temperature is: %s"%T)
+                    client_sock.send(str(T))  
+                else:
+                    print("not running")
+                    bluetoothdata = "F"
+                    client_sock.send(bluetoothdata)             
 
             else:              #If Receive Unknow Data
                 print("value not found")
 
-        except KeyboardInterrupt:
-            print ("\nprograma interrompido pelo usuario\n")
-        except UnicodeDecodeError:
-            print ("\nrecebido valor impossivel de ser reconhecido\n")
-        except bluetooth.btcommon.BluetoothError: #if nothing received
+    except KeyboardInterrupt:
+        print ("\nprograma interrompido pelo usuario\n")
+    except UnicodeDecodeError:
+        print ("\nrecebido valor impossivel de ser reconhecido\n")
+    except bluetooth.btcommon.BluetoothError:
+        print ("\nconexão cancelada pelo usuario\n")
 
-            if Running == 1:
-                if Config == 1:
-                    Config = 0
-                    filename = int(name)
-                    print("CSV File name setup is: ",filename)
-                P = Measurement.GetValue(1,filename) #Ask Pressure
-                print("Pressure is: %s"%P)
-                client_sock.send(str(P))
-            else:
-                print("waiting for any command")

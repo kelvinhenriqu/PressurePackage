@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__VERSION__ = 3.0
+__VERSION__ = 5.0
 
 import time
 import pigpio
@@ -10,6 +10,7 @@ import csv
 Debug = 0
 
 def SaveSD(P,T,Filename):
+    global Debug
     path = "/home/pi/measurements/" # path to save the file
     Directory = str(path) + str(Filename) + ".csv"
 
@@ -17,6 +18,8 @@ def SaveSD(P,T,Filename):
         sensor_write = csv.writer(sensor_readings, delimiter=';', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         write_to_log = sensor_write.writerow([P,T]) #write P & T in sdcard
         return(write_to_log)
+
+    if Debug == 1: print("measure saved in CSV file")
 
 class Measurement :
     def Debug(self):
@@ -50,32 +53,29 @@ class Measurement :
             
         except pigpio.error:
             print ("\ni2c error, is sensor connected ?\n")
-#       except:
-#           print ("unknown error occoured")
+#             except:
+#                 print ("unknown error occoured")
         except KeyboardInterrupt:
             print ("\ncancelled by user\n")
         finally:
             if Debug == 1:
-                print()
                 if Pressure < -1 or Pressure > 5:
-                    print ("out of range\n")
+                    print ("\nout of range\n")
                 else:
-                    print ("Pressure: %s bar\n"%(Pressure))
+                    print ("\nPressure: %s bar\n"%(Pressure))
 
                 if  Temperature <0 or Temperature >100:
-                    print ("out of range\n")
+                    print ("\nout of range\n")
                 else:
-                    print ("Temperature: %s ºC\n"%(Temperature))
+                    print ("\nTemperature: %s ºC\n"%(Temperature))
 
-        if measure == 1:    #firmware request Pressure
-            return Pressure
-        elif measure == 2:  #firmware request Temperature
-            return Temperature
+        if measure == 1: return Pressure        #firmware request Pressure
+        if measure == 2: return Temperature     #firmware request Temperature
     
 
 if __name__ == "__main__":
 
-    while True:
+#    while True:
         filename = "9999" #test filename
         P = Measurement.GetValue(1,filename) #ask for temperature
         T = Measurement.GetValue(2,filename) #ask for pressure
