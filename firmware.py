@@ -103,9 +103,9 @@ if __name__ == "__main__":
                 print("value not found")
 
     except KeyboardInterrupt:
-        print ("\nprograma interrompido pelo usuario")
+        print ("\nprograma interrompido pelo usuario\n")
     except UnicodeDecodeError:
-        print ("\nrecebido valor impossivel de ser reconhecido")
+        print ("\nrecebido valor impossivel de ser reconhecido\n")
     except bluetooth.btcommon.BluetoothError:
-        print ("\nconexão cancelada pelo usuario")
+        print ("\nconexão cancelada pelo usuario\n")
 
