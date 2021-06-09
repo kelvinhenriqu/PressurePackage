@@ -35,8 +35,8 @@ if __name__ == "__main__":
     Debug = 0    
     while True:
         try:                              
-            Bdata = client_sock.recv(1024) #dados em binario
-            Ddata = Bdata.decode('utf-8') #conversão de dados para decimal
+            Bdata = client_sock.recv(1024) #binary data with maximum size of 1mb 
+            Ddata = Bdata.decode('utf-8') #binary to decimal conversion
             print ("\nreceived %s that means %s" %(Bdata,Ddata))             
 
             if Ddata == "1":   #Start Measure
@@ -74,32 +74,28 @@ if __name__ == "__main__":
                 print (bluetoothdata)
                 client_sock.send(bluetoothdata)
 
-            elif Ddata == "s":
+            elif Ddata == "s": #Force Stop program
                 bluetoothdata = "Force Stop"
                 print (bluetoothdata)
                 client_sock.send(bluetoothdata)
                 sys.exit()
 
-            elif Ddata == "l":
+            elif Ddata == "l": #Show last CSV file created
                 bluetoothdata = "Last CSV Created is:  "
                 client_sock.send(bluetoothdata)                
                 client_sock.send(name)
-                print ("Last CSV Created is %s" %name)
-                             
+                print ("Last CSV Created is %s" %name)                            
 
             else:              #If Receive Unknow Data
-                print("value not found")
+                print("Value not found")
 
         except KeyboardInterrupt:
-            print ("\nprograma interrompido pelo usuario\n")
+            print ("\nProgram interrupted by user\n")
         except UnicodeDecodeError:
-            print ("\nrecebido valor impossivel de ser reconhecido\n")
-#        except bluetooth.error:
-#            print("\n(104, 'Connection reset by peer')")
-#            print("deu certo ?")
+            print ("\nReceived unrecognizable value\n")
         except bluetooth.btcommon.BluetoothError: #if nothing received
 
-            if Running == 1: #if any measuare is running                
+            if Running == 1: #if any measure is running                
                 if Config == 1: #if config process is necessary
                     Config = 0
                     filename = int(name)
@@ -108,4 +104,5 @@ if __name__ == "__main__":
                 print("Pressure is: %s"%P)
                 client_sock.send(str(P))
             else:
-                print("waiting for any command")
+#                print("waiting for any command") #don't use it in autostart routine, may use a lot of pi's power
+                time.sleep(1)
