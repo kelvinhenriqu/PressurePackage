@@ -94,6 +94,9 @@ if __name__ == "__main__":
             print ("\nprograma interrompido pelo usuario\n")
         except UnicodeDecodeError:
             print ("\nrecebido valor impossivel de ser reconhecido\n")
+#        except bluetooth.error:
+#            print("\n(104, 'Connection reset by peer')")
+#            print("deu certo ?")
         except bluetooth.btcommon.BluetoothError: #if nothing received
 
             if Running == 1: #if any measuare is running                
