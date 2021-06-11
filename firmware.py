@@ -8,6 +8,7 @@ import time
 import bluetooth
 from datetime import datetime
 import sys
+import os
 
 server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 
@@ -16,6 +17,7 @@ server_sock.bind(("",port))
 server_sock.listen(1)
 Running = 0
 Config = 0
+Timer = 0
 
 print ("waiting for any bluetooth connection")
 client_sock,address = server_sock.accept()
@@ -33,6 +35,7 @@ def GenCSVName():
 if __name__ == "__main__":
     name = GenCSVName() 
     Debug = 0    
+    
     while True:
         try:                              
             Bdata = client_sock.recv(1024) #binary data with maximum size of 1mb 
@@ -84,7 +87,13 @@ if __name__ == "__main__":
                 bluetoothdata = "Last CSV Created is:  "
                 client_sock.send(bluetoothdata)                
                 client_sock.send(name)
-                print ("Last CSV Created is %s" %name)                            
+                print ("Last CSV Created is %s" %name)  
+
+            elif Ddata == "x": #shutdown rasp
+                bluetoothdata = "shutting down:  "
+                client_sock.send(bluetoothdata)
+                print (bluetoothdata) 
+                os.system("sudo shutdown -h now")
 
             else:              #If Receive Unknow Data
                 print("Value not found")
@@ -105,4 +114,11 @@ if __name__ == "__main__":
                 client_sock.send(str(P))
             else:
 #                print("waiting for any command") #don't use it in autostart routine, may use a lot of pi's power
-                time.sleep(1)
+                time.sleep(1)                
+
+                if Timer == 120: #auto shutdown after 2 minutes 
+                    os.system("sudo shutdown -h now")
+                else:
+                    Timer += 1
+
+                
