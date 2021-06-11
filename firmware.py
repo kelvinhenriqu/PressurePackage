@@ -89,7 +89,7 @@ if __name__ == "__main__":
                 client_sock.send(name)
                 print ("Last CSV Created is %s" %name)  
 
-            elif Ddata == "x": #shutdown rasp
+            elif Ddata == "x": #shutdown rasp  
                 bluetoothdata = "shutting down:  "
                 client_sock.send(bluetoothdata)
                 print (bluetoothdata) 
