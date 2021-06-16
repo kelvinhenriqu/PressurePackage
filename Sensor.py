@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__VERSION__ = 5.0
+__VERSION__ = 6.0
 
 import time
 import pigpio
@@ -45,10 +45,12 @@ class Measurement :
             t2 = bin(d[5])[2:].zfill(8) #TempDat2
             bpress = p1+p2+p3            #concatenate values in bytes
             dpress = int(bpress, 2)      #convert to Decimal
-            Pressure = (((((dpress/12305550)*100)*6)/100)-2.2)*1.042 #calibration factor is 1.042
+            ipress = (((((dpress/12305550)*100)*6)/100)-2.2)*1.042 #calibration factor is 1.042
+            Pressure = round(ipress, 3)
             btemp = t1+t2                #concatenate values in bytes
             dtemp = int(btemp, 2)        #convert to Decimal
-            Temperature = (((dtemp/65536)*190)-40)*0.954 #calibration factor is 0.954
+            itemp = (((dtemp/65536)*190)-40)*0.954 #calibration factor is 0.954
+            Temperature = round(itemp,1)
             Save = SaveSD(Pressure,Temperature,filename)
             
         except pigpio.error:
@@ -75,7 +77,7 @@ class Measurement :
 
 if __name__ == "__main__":
 
-#    while True:
+    while True:
         filename = "9999" #test filename
         P = Measurement.GetValue(1,filename) #ask for temperature
         T = Measurement.GetValue(2,filename) #ask for pressure
