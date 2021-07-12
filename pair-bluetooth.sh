@@ -7,4 +7,6 @@ echo "scan on"
 echo "-------"
 echo "para pair, pair 00:00:00:00:00:00"
 echo "para remover, remove 00:00:00:00:00:00$(tput setaf 7)"
+echo ""
+echo "EC:CE:D7:75:A6:2B  iphone kelvin"
 sudo bluetoothctl

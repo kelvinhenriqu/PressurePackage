@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__VERSION__ = 7.0
+__VERSION__ = 6.0
 
 import time
 import pigpio
